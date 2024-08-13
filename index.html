@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Training Log </title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="background-color:azure;">
+    <header id="main-nav">
+        <h4> Training Log </h4>
+        <div id="t"> Filter By: </div>
+        <div id="t"> &#43; </div>
+    </header>
+
+    <section>
+        <div> Click the plus to add your first workout! </div>
+    </section>
+
+    <section id="add-workout">
+        <div id="add-workout-title">
+            <h4> Add Workout </h4>
+            <input type="date" id="start" name="trip-start" value="2024-08-13" min="2024-01-01" max="2024-12-31" />
+        </div>
+        
+        <div id="time-distance-div">
+            <div id="add-time">
+                <h5> Time: </h5>
+                <input type="text" class="input-info"></input>
+                <select name="time" id="time">
+                    <option value="null"></option>
+                    <option value="hours">hours</option>
+                    <option value="min">minutes</option>
+                </select>
+            </div>
+            <div id="add-distance">
+                <h5> Distance: </h5>
+                <input type="text" class="input-info"></input>
+                <select name="distance" id="distance">
+                    <option value="null"></option>
+                    <option value="miles">miles</option>
+                    <option value="yards">yards</option>
+                </select>
+            </div>
+            <div id="add-intensity">
+                <h5> Intensity: </h5>
+                <div class="sliderContainer">
+                    <input type="range" min="1" max="10" value="1" class="slider" id="intensity">
+                </div>
+            </div>
+            <div id="type-of-workout">
+                <h5> Workout Type: </h5>
+                <select name="workout-type" id="workout-type">
+                    <option value="null"></option>
+                    <option value="run">Run</option>
+                    <option value="bike">Bike</option>
+                    <option value="swim">Swim</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+        </div>
+        <div id="workout-builder">
+            <div id="workout-layout"></div>
+            <div id="workout-blocks">
+                <div class="workout-block-button"> Warm Up </div> 
+                <div class="workout-block-button"> Pre Set </div>
+                <div class="workout-block-button"> Main Set </div> 
+                <div class="workout-block-button"> Post Set </div> 
+                <div class="workout-block-button"> Warm Down </div> 
+            </div>
+        </div>
+        <div id="highlights-mood-goals-div">
+            <div id="add-highlights">
+                <h5 style="margin-bottom: 0;"> Any noteable highlights? </h5>
+                <input type="text"></input>
+            </div>
+            <div id="add-mood">
+                <h5 style="margin-bottom: 0;"> How did you feel during the workout? </h5>
+                <div id="mood-options"> 
+                    <p> &#128564</p>
+                    <p> &#128549</p>
+                    <p> &#128528</p>
+                    <p> &#128522</p>
+                    <p> &#128513</p>
+                </div>
+            </div>
+            <div id="add-goals">
+                <h5 style="margin-bottom: 0;"> What are you training for? </h5>  
+                <select name="goals-dropdown" id="goals-dropdown">
+                    <option value="null"> add goal </option>>
+                </select>
+                <input type="text" class="input-info" style="width: 80px"></input>
+            </div>
+            <div id="submit-workout">
+                <h4> Submit </h4>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

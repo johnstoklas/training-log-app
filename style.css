@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+
+#main-nav > * {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    margin-right: 300px;
+}
+
+#main-nav  {
+    text-align: center;
+}
+
+#add-workout {
+    height: 550px;
+    width: 1000px;
+    background-color: rgb(169, 181, 181);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -500px;
+    margin-top: -275px;
+    border-radius: 8px;
+}
+
+#add-workout div {
+    border-radius: 6px;
+}
+
+#add-workout {
+    padding-left: 1em;
+}
+
+#add-workout-title > * {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+#time-distance-div {
+    display: flex;
+}
+
+#time-distance-div div {
+    height: 70px;
+}
+
+#time-distance-div div > *{
+    display: inline-block;
+    margin-right: .5em;
+}
+
+#workout-builder {
+    width: 1000px;
+    height: 300px;
+}
+
+#workout-builder > * {
+    display: inline-block;
+}
+
+#workout-layout {
+    background-color: azure;
+    height: 300px;
+    width: 800px;
+}
+
+#workout-blocks {
+    height: 300px;
+    width: 150px;
+    background-color: azure;
+    translate: 0 -27px;
+}
+
+.workout-block-button {
+    width: 143px;
+    height: 56px;
+    margin: .2em;
+    background-color: lightblue;
+    text-align: center;
+    color: gray;
+    font-size: 18px;
+    line-height: 50px;
+}
+
+.workout-block-button:hover {
+    cursor: pointer;
+}
+
+#highlights-mood-goals-div {
+    display: flex;
+}
+
+#highlights-mood-goals-div div {
+    margin-right: 40px;
+}
+
+#mood-options {
+    height: 40px;  
+    text-align: center;
+}
+
+#mood-options:hover {
+    cursor: pointer;
+}
+
+#mood-options > * {
+    display: inline-block;
+    margin: 0;
+    height: 30px;
+    width: 30px;
+    font-size: 20px;
+    margin: 0 10px;
+    translate: -10px 0;
+}
+
+#submit-workout {
+    margin-left: 60px;
+    margin-top: 10px;
+}
+
+#submit-workout > * {
+    background-color: gray;
+    padding: .3em .6em;
+    border-radius: 6px;
+}
+
+#submit-workout > *:hover {
+    cursor: pointer;
+}
+
+.input-info {
+    width: 40px;
+    height: 16px;
+}
