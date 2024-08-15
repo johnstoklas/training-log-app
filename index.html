@@ -17,8 +17,8 @@
 
     <section id="added-workout-section">
         <div id="add-first-workout"> Click the &#43; to add your first workout! </div>
-        <!--
-        <div class="added-workout">
+        
+        <div class="added-workout" onclick="showFullWorkout()">
             <div class="aw-workout-type"> 🏃 </div>
             <div class="aw-title">
                 <h4> 8-14-24 </h4>
@@ -28,9 +28,19 @@
             <div class="aw-inten-mood"> 
                 <h5> Intensity: 3/10</h5>
                 <h5> &#128522 </h5>
+            </div>  
+        </div>
+        <div class="full-workout">
+            <div class="aw-workout-type"> 🏃 </div>
+            <div class="aw-title">
+                <h4> 8-14-24 </h4>
+                <h5> 40 minutes </h5>
+                <h5> 4.2 miles </h5>
             </div>
-        -->
-            
+            <div class="aw-inten-mood"> 
+                <h5> Intensity: 3/10</h5>
+                <h5> &#128522 </h5>
+            </div>  
         </div>
     </section>
 
@@ -89,25 +99,29 @@
         </div>
         <div id="highlights-mood-goals-div">
             <div id="add-highlights">
-                <h5 style="margin-bottom: 0;"> Any noteable highlights? </h5>
-                <input type="text"></input>
+                <h5 style="margin-bottom: 0;"> Any highlights? </h5>
+                <textarea id="highlights-input"></textarea>
             </div>
             <div id="add-mood">
                 <h5 style="margin-bottom: 0;"> How did you feel during the workout? </h5>
                 <div id="mood-options"> 
-                    <p> &#128564</p>
-                    <p> &#128549</p>
-                    <p> &#128528</p>
-                    <p> &#128522</p>
-                    <p> &#128513</p>
+                    <p onclick="moodInput(1)" id="mood1"> &#128564</p>
+                    <p onclick="moodInput(2)" id="mood2"> &#128549</p>
+                    <p onclick="moodInput(3)" id="mood3"> &#128528</p>
+                    <p onclick="moodInput(4)" id="mood4"> &#128522</p>
+                    <p onclick="moodInput(5)" id="mood5"> &#128513</p>
                 </div>
             </div>
             <div id="add-goals">
                 <h5 style="margin-bottom: 0;"> What are you training for? </h5>  
-                <select name="goals-dropdown" id="goals-dropdown">
-                    <option value="null"> add goal </option>>
-                </select>
-                <input type="text" class="input-info" style="width: 80px"></input>
+                <div id="add-goals-input-area">
+                    <select name="goals-dropdown" id="goals-dropdown">
+                        <option value="null"> add goal </option>>
+                    </select>
+                    <input type="text" class="input-info" style="width: 80px"></input>
+                    <div> &#43; </div>
+                </div>
+                
             </div>
             <div id="submit-workout">
                 <h4 onclick="createWorkout()"> Submit </h4>

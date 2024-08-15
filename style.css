@@ -167,11 +167,26 @@
 }
 
 #highlights-mood-goals-div {
-    display: flex;
+    display: inline-flex;
 }
 
 #highlights-mood-goals-div div {
     margin-right: 40px;
+}
+
+#add-highlights {
+    width: 210px;
+}
+
+#highlights-input {
+    width: 200px;
+    height: 50px;
+    overflow-y: scroll;
+    resize: none;
+}
+
+#add-mood {
+    width: 300px;
 }
 
 #mood-options {
@@ -189,13 +204,22 @@
     height: 30px;
     width: 30px;
     font-size: 20px;
-    margin: 0 10px;
+    margin: 0 2px;
     translate: -10px 0;
 }
 
+#add-goals-input-area > * {
+    display: inline-block;
+}
+
+#add-goals-input-area {
+    width: 240px;
+}
+
 #submit-workout {
-    margin-left: 60px;
+    margin-left: -40px;
     margin-top: 10px;
+    
 }
 
 #submit-workout > * {
@@ -251,4 +275,24 @@
 
 .aw-inten-mood {
     translate: 80px -110px;
+}
+
+.aw-workout-layout {
+    translate: 350px -175px;
+}
+.aw-workout-block {
+    width: 10px;
+    height: 68px;
+}
+
+/* full workout */
+
+.full-workout {
+    width: 1000px;
+    height: 550px;
+    background-color: gray;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    translate: -500px -275px;
 }
