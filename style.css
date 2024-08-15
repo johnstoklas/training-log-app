@@ -61,16 +61,26 @@
     margin-right: 10px;
 }
 
+#required-fields {
+    color: red;
+    font-weight: 400;
+    display: none;
+}
+
 #close-add-workout {
-    margin-left: 640px;
+    float: right;
+    margin-top: 20px;
+    margin-right: 30px;
     font-size: 14px;
     color: red;
 }
 
 #close-add-workout:hover {
-    margin-left: 640px;
+    float: right;
+    margin-top: 20px;
+    margin-right: 30px;
     font-size: 14px;
-    color: red;    
+    color: red;
     cursor: pointer;
 }
 
@@ -217,9 +227,8 @@
 }
 
 #submit-workout {
-    margin-left: -40px;
     margin-top: 10px;
-    
+    margin-left: 525px;
 }
 
 #submit-workout > * {
@@ -243,7 +252,7 @@
 .added-workout {
     width: 800px;
     height: 100px;
-    background-color: gray;
+    background-color: rgb(169, 181, 181);
     position: relative;
     left: 50%;
     translate: -400px 0;
@@ -267,6 +276,8 @@
     margin-top: 20px;
     margin-left: 5px;
     font-size: 40px;
+    padding-top: 15px;
+    padding-left: 10px;
 }
 
 .aw-title {
@@ -275,6 +286,10 @@
 
 .aw-inten-mood {
     translate: 80px -110px;
+}
+
+.slider { 
+    height: 10px;
 }
 
 .aw-workout-layout {
@@ -288,7 +303,7 @@
 .aw-show-more {
     color: white;
     font-size: 14px;
-    translate: 700px -155px;
+    translate: 700px -168px;
 }
 
 .aw-show-more:hover{
@@ -300,12 +315,13 @@
 .full-workout {
     width: 1000px;
     height: 550px;
-    background-color: gray;
+    background-color: rgb(169, 181, 181);
     position: absolute;
     left: 50%;
     top: 50%;
     translate: -500px -275px;
     display: none;
+    border-radius: 7px;
 }
 
 .fw-layout {
@@ -315,7 +331,8 @@
     overflow-y: scroll;
     position: absolute;
     left: 50%;
-    translate: -420px;
+    translate: -420px 50px;
+    border-radius: 5px;
 }
 
 .fw-layout > * {
@@ -329,13 +346,66 @@
 .fw-type {
     width: 40px;
     height: 40px;
-    font-size: 30px;
+    font-size: 50px;
+}
+
+.fw-title {
+    padding-left: 30px;
 }
 
 .fw-title > * {
     display: inline-block;
+    color: white;
+    font-weight: 400;
+    padding-left: 10px;
 }
 
 .fw-inten-mood > * {
+    display: inline-block;
+    color: white;
+    font-weight: 400;
+    padding-left: 10px;
+}
+
+.fw-close {
+    color: white;
+    float:right;
+    margin-right: 12px;
+    margin-top: 5px;
+}
+
+.fw-close:hover {
+    cursor: pointer;
+}
+
+.fw-workout-block {
+    margin: .3em;
+    height: 290px;
+    width: 154.5px;
+    border-radius: 5px;
+}
+
+.fw-workout-block div h4 {
+    font-weight: 500;
+}
+
+.fw-workout-block pre {
+    width: 135px;
+    height: 240px;
+    border: none;
+    border-radius: 4px;
+    text-wrap: wrap;
+    resize: none;
+    translate: 10px -30px;
+    background-color: #ffffff9c;
+    overflow-y: scroll;
+    color: black;
+}
+
+.fw-workout-block pre {
+    padding-left: .3em;
+}
+
+.fw-workout-block div > * {
     display: inline-block;
 }

@@ -17,6 +17,7 @@
     <section id="added-workout-section">
         <div id="add-first-workout"> Click the &#43; to add your first workout! </div>
         <!--
+        
         <div class="added-workout" onclick="showFullWorkout()">
             <div class="aw-workout-type"> 🏃 </div>
             <div class="aw-title">
@@ -29,7 +30,7 @@
                 <h5> &#128522 </h5>
             </div>  
         </div>
-        <div class="full-workout">
+        <div class="full-workout" style="display: block;">
             <div class="fw-heading">
                 <div class="fw-type"> 🏃 </div>
                 <div class="fw-title">
@@ -44,15 +45,20 @@
             </div>
             <div class="fw-layout">
             </div>
+            <div class="fw-highlights">
+                <h5> Highlights </h5>
+                <div> highlights go here </div>
+            </div>
             
-        </div>
-    -->
+        </div>-->
+    
     </section>
 
     <section id="add-workout">
         <div id="add-workout-title">
             <h4> Add Workout </h4>
             <input type="date" id="workout-date" name="workout-date" value="2024-08-13" min="2024-01-01" max="2024-12-31" />
+            <h5 id="required-fields"> *Please fill out the required fields* </h5>
             <div id="close-add-workout" onclick="closeAddWorkout()"> Cancel </div>
         </div>
         <div id="time-distance-div">
@@ -76,7 +82,7 @@
             </div>
             <div id="add-intensity">
                 <h5> Intensity: </h5>
-                <div class="sliderContainer">
+                <div class="intensitySlider">
                     <input type="range" min="1" max="10" value="1" class="slider" id="intensity-range">
                 </div>
             </div>
@@ -103,10 +109,6 @@
             </div>
         </div>
         <div id="highlights-mood-goals-div">
-            <div id="add-highlights">
-                <h5 style="margin-bottom: 0;"> Any highlights? </h5>
-                <textarea id="highlights-input"></textarea>
-            </div>
             <div id="add-mood">
                 <h5 style="margin-bottom: 0;"> How did you feel during the workout? </h5>
                 <div id="mood-options"> 
@@ -116,17 +118,6 @@
                     <p onclick="moodInput(4)" id="mood4"> &#128522</p>
                     <p onclick="moodInput(5)" id="mood5"> &#128513</p>
                 </div>
-            </div>
-            <div id="add-goals">
-                <h5 style="margin-bottom: 0;"> What are you training for? </h5>  
-                <div id="add-goals-input-area">
-                    <select name="goals-dropdown" id="goals-dropdown">
-                        <option value="null"> add goal </option>>
-                    </select>
-                    <input type="text" class="input-info" style="width: 80px"></input>
-                    <div> &#43; </div>
-                </div>
-                
             </div>
             <div id="submit-workout">
                 <h4 onclick="createWorkout()"> Submit </h4>

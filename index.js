@@ -26,7 +26,9 @@ function clearAddWorkout() {
 
     workoutLayout.length = 0;
     moodInputNum = 0;
+    moodInput(moodInputNum);
     idCount = 0;
+    document.getElementById('required-fields').style.display = 'none';
 }
 
 function addWorkoutBlock(type) {
@@ -121,6 +123,10 @@ function moodInput(scaleNum) {
     document.getElementById('mood4').style.border = 'none';
     document.getElementById('mood5').style.border = 'none';
 
+    if(scaleNum === 0) {
+        return;
+    }
+
     if(scaleNum === 1) {
         document.getElementById('mood1').style.border = '1px solid white';
         moodInputNum = 1;
@@ -145,10 +151,6 @@ function moodInput(scaleNum) {
 
 
 function createWorkout() { 
-    if(workoutCount === 0) {
-        document.getElementById('add-first-workout').style.display = 'none';
-    }
-    workoutCount++;
     var packMand = {
         date:document.getElementById('workout-date').value,
         time:document.getElementById('time-input').value,
@@ -157,31 +159,32 @@ function createWorkout() {
         distanceUnit:document.getElementById('distance-unit').value,
         intensity:document.getElementById('intensity-range').value,
         workoutType:document.getElementById('workout-type').value,
-    }
-    var packOpt = {
-        highlights:document.getElementById('highlights-input').value,
         mood:moodInputNum,
-        goals:document.getElementById('goals-dropdown').value,
     }
     var newWorkoutLayout = removeNullBlocks(workoutLayout);
-    /*
+    
     for(var i in packMand) {
         if(!packMand[i]) {
-            console.log(false);
+            document.getElementById('required-fields').style.display = 'inline-block';
             return;
         }
-    }*/
+    }
 
     var workoutID = `workoutNum${i}`
 
     workouts[i] = {
         num:i,
         packMand:packMand,
-        packOpt:packOpt,
     }
     i++;
 
+    if(workoutCount === 0) {
+        document.getElementById('add-first-workout').style.display = 'none';
+    }
+    workoutCount++;
+
     var workoutSymbol = assignWorkoutSymbol(packMand);
+    var workoutMood = assignWorkoutMood(packMand.mood);
 
     var newWorkout = document.createElement('div');
     newWorkout.className = 'added-workout';
@@ -196,7 +199,7 @@ function createWorkout() {
             </div>
             <div class="aw-inten-mood"> 
                 <h5> Intensity: ${packMand.intensity}/10 </h5>
-                <h5> &#128522 </h5>
+                <h5> ${workoutMood} </h5>
             </div>
             <div onclick="showFullWorkout(${workoutID})" class="aw-show-more"> Show More </div>`;
     var newWorkoutFull = document.createElement('div');
@@ -213,9 +216,9 @@ function createWorkout() {
                 </div>
                 <div class="fw-inten-mood"> 
                     <h5> Intensity: ${packMand.intensity}/10</h5>
-                    <h5> &#128522 </h5>
+                    <h5> ${workoutMood} </h5>
                 </div>  
-                <div onclick="closeFullWorkou(${workoutID})"> &#10005; </div>
+                <div onclick="closeFullWorkou(${workoutID})" class="fw-close"> &#10005; </div>
             </div>
             <div class="fw-layout"></div>
         `;
@@ -243,7 +246,30 @@ function assignWorkoutSymbol(pack) {
     }
 }
 
+function assignWorkoutMood(num) {
+    if(num === 0) {
+        return '';
+    }
+    else if(num === 1) {
+        return '&#128564';
+    }
+    else if(num === 2) {
+        return '&#128549';
+    }
+    else if(num === 3) {
+        return '&#128528';
+    }
+    else if(num === 4) {
+        return '&#128522';
+    }
+    else if(num === 5) {
+        return '&#128513';
+    }
+}
+
 function showFullWorkout(id) {
+    console.log(id)
+    console.log(document.getElementById(id))
     id.style.display = 'block';
 }
 
@@ -275,14 +301,14 @@ function createWorkoutLayout(array, inputArray) {
     
     for(var a = 0; a<array.length; a++) {
         var newDiv = document.createElement('div');
-        newDiv.className = 'added-workout-block';
+        newDiv.className = 'fw-workout-block';
         if(array[a].type === 'warmUp') {
             newDiv.style = 'background-color:#45a2ed';
             newDiv.innerHTML = 
             `<div>
                 <h4 class="awb-title" > Warm Up </h4>
             </div>
-            <div> ${inputArray[a]} </div>`
+            <pre> ${inputArray[a]} </pre>`
         }
         else if(array[a].type === 'preSet') {
             newDiv.style = 'background-color:#45ed75';
@@ -290,7 +316,7 @@ function createWorkoutLayout(array, inputArray) {
             `<div>
                 <h4 class="awb-title" > Pre Set </h4>
             </div>
-            <div> ${inputArray[a]}  </div>`
+            <pre> ${inputArray[a]}  </pre>`
         }
         else if(array[a].type === 'mainSet') {
             newDiv.style = 'background-color:#a520e3';
@@ -298,7 +324,7 @@ function createWorkoutLayout(array, inputArray) {
             `<div>
                 <h4 class="awb-title" > Main Set </h4>
             </div>
-            <div> ${inputArray[a]}  </div>`
+            <pre> ${inputArray[a]}  </pre>`
         }
         else if(array[a].type === 'postSet') {
             newDiv.style = 'background-color:#e32081';
@@ -306,7 +332,7 @@ function createWorkoutLayout(array, inputArray) {
             `<div>
                 <h4 class="awb-title" > Post Set </h4>
             </div>
-            <div> ${inputArray[a]} </div>`
+            <pre> ${inputArray[a]} </pre>`
         }
         else if(array[a].type === 'warmDown') {
             newDiv.style = 'background-color:#e38220';
@@ -314,9 +340,8 @@ function createWorkoutLayout(array, inputArray) {
             `<div>
                 <h4 class="awb-title" > Warm Down </h4>
             </div>
-            <div> ${inputArray[a]} </div>`
+            <pre> ${inputArray[a]} </pre>`
         }
         appendDiv.appendChild(newDiv);
     }
-    
 }
