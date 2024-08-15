@@ -285,6 +285,16 @@
     height: 68px;
 }
 
+.aw-show-more {
+    color: white;
+    font-size: 14px;
+    translate: 700px -155px;
+}
+
+.aw-show-more:hover{
+    cursor:pointer;
+}
+
 /* full workout */
 
 .full-workout {
@@ -295,4 +305,37 @@
     left: 50%;
     top: 50%;
     translate: -500px -275px;
+    display: none;
+}
+
+.fw-layout {
+    background-color: azure;
+    height: 300px;
+    width: 840px;
+    overflow-y: scroll;
+    position: absolute;
+    left: 50%;
+    translate: -420px;
+}
+
+.fw-layout > * {
+    display: inline-block;
+}
+
+.fw-heading > * {
+    display: inline-block;
+}
+
+.fw-type {
+    width: 40px;
+    height: 40px;
+    font-size: 30px;
+}
+
+.fw-title > * {
+    display: inline-block;
+}
+
+.fw-inten-mood > * {
+    display: inline-block;
 }

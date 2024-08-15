@@ -39,7 +39,6 @@ function addWorkoutBlock(type) {
     workoutBlock.style = 'background-color:#45a2ed';
     var workoutBuilder = document.getElementById('workout-layout');
     if(type === 'warmUp') {
-        
         workoutBlock.style = 'background-color:#45a2ed';
         workoutBlock.innerHTML = 
         `<div>
@@ -105,7 +104,6 @@ function addWorkoutBlock(type) {
         }
     }
     x++;
-    console.log(workoutLayout)
     
     workoutBuilder.appendChild(workoutBlock);
 
@@ -165,13 +163,14 @@ function createWorkout() {
         mood:moodInputNum,
         goals:document.getElementById('goals-dropdown').value,
     }
+    var newWorkoutLayout = removeNullBlocks(workoutLayout);
+    /*
     for(var i in packMand) {
         if(!packMand[i]) {
             console.log(false);
             return;
         }
-    }
-    console.log(packMand);
+    }*/
 
     var workoutID = `workoutNum${i}`
 
@@ -186,8 +185,8 @@ function createWorkout() {
 
     var newWorkout = document.createElement('div');
     newWorkout.className = 'added-workout';
-    newWorkout.id = workoutID;
-    newWorkout.onclick = showFullWorkout(workoutID);
+    //newWorkout.id = workoutID;
+    //newWorkout.onclick = 
     newWorkout.innerHTML = 
             `<div class="aw-workout-type"> ${workoutSymbol} </div>
             <div class="aw-title">
@@ -198,10 +197,33 @@ function createWorkout() {
             <div class="aw-inten-mood"> 
                 <h5> Intensity: ${packMand.intensity}/10 </h5>
                 <h5> &#128522 </h5>
-            </div>`;
+            </div>
+            <div onclick="showFullWorkout(${workoutID})" class="aw-show-more"> Show More </div>`;
+    var newWorkoutFull = document.createElement('div');
+    newWorkoutFull.className = 'full-workout';
+    newWorkoutFull.id = workoutID;
+    newWorkoutFull.innerHTML = 
+        `
+            <div class="fw-heading">
+                <div class="fw-type"> ${workoutSymbol} </div>
+                <div class="fw-title">
+                    <h4> ${packMand.date} </h4>
+                    <h5> ${packMand.time} ${packMand.timeUnit} </h5>
+                    <h5> ${packMand.distance} ${packMand.distanceUnit} </h5>
+                </div>
+                <div class="fw-inten-mood"> 
+                    <h5> Intensity: ${packMand.intensity}/10</h5>
+                    <h5> &#128522 </h5>
+                </div>  
+                <div onclick="closeFullWorkou(${workoutID})"> &#10005; </div>
+            </div>
+            <div class="fw-layout"></div>
+        `;
     var workoutSection = document.getElementById('added-workout-section');
-    console.log(workoutSection);
     workoutSection.appendChild(newWorkout);
+    workoutSection.appendChild(newWorkoutFull);
+    var workoutLayoutInput = getLayoutInput(newWorkoutLayout);
+    createWorkoutLayout(newWorkoutLayout, workoutLayoutInput);
     document.getElementById('add-workout').style.display = 'none';
     clearAddWorkout();
 }
@@ -221,6 +243,80 @@ function assignWorkoutSymbol(pack) {
     }
 }
 
-function showFullWorkout() {
+function showFullWorkout(id) {
+    id.style.display = 'block';
+}
+
+function closeFullWorkou(id) {
+    id.style.display = 'none';
+}
+
+function removeNullBlocks(array) {
+    var ret = [];
+    var count = 0;
+    for(var a = 0; a<array.length; a++) {
+        if(array[a]) {
+            ret[count] = array[a];
+            count++;
+        } 
+    }
+    return ret;
+}
+
+function getLayoutInput(array) {
+    var ret = [];
+    for(var a = 0; a<array.length; a++) {ret[a] = document.getElementById(array[a].id).lastElementChild.value;}
+    return ret;
+}
+
+function createWorkoutLayout(array, inputArray) {
+    var appendDiv = document.getElementById('added-workout-section').lastElementChild.lastElementChild
+    console.log(appendDiv)
+    
+    for(var a = 0; a<array.length; a++) {
+        var newDiv = document.createElement('div');
+        newDiv.className = 'added-workout-block';
+        if(array[a].type === 'warmUp') {
+            newDiv.style = 'background-color:#45a2ed';
+            newDiv.innerHTML = 
+            `<div>
+                <h4 class="awb-title" > Warm Up </h4>
+            </div>
+            <div> ${inputArray[a]} </div>`
+        }
+        else if(array[a].type === 'preSet') {
+            newDiv.style = 'background-color:#45ed75';
+            newDiv.innerHTML = 
+            `<div>
+                <h4 class="awb-title" > Pre Set </h4>
+            </div>
+            <div> ${inputArray[a]}  </div>`
+        }
+        else if(array[a].type === 'mainSet') {
+            newDiv.style = 'background-color:#a520e3';
+            newDiv.innerHTML = 
+            `<div>
+                <h4 class="awb-title" > Main Set </h4>
+            </div>
+            <div> ${inputArray[a]}  </div>`
+        }
+        else if(array[a].type === 'postSet') {
+            newDiv.style = 'background-color:#e32081';
+            newDiv.innerHTML = 
+            `<div>
+                <h4 class="awb-title" > Post Set </h4>
+            </div>
+            <div> ${inputArray[a]} </div>`
+        }
+        else if(array[a].type === 'warmDown') {
+            newDiv.style = 'background-color:#e38220';
+            newDiv.innerHTML = 
+            `<div>
+                <h4 class="awb-title" > Warm Down </h4>
+            </div>
+            <div> ${inputArray[a]} </div>`
+        }
+        appendDiv.appendChild(newDiv);
+    }
     
 }
