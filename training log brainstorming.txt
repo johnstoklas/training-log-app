@@ -1,0 +1,13 @@
+distance 
+time 
+intensity
+type of workout
+what you actually did
+	warm up
+	pre-set
+	main set
+	post-set
+	cool down/stretching
+highlights
+mood
+goals
