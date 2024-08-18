@@ -5,8 +5,10 @@ var workoutCount = 0;
 var moodInputNum = 0;
 var workouts = [];
 var workoutLayout = [];
-var i = 0;
+var blockValues = [];
 var x = 0;
+
+var usernameClient = ''; 
 
 function addWorkoutButton() {
     document.getElementById('add-workout').style.display = 'block';
@@ -178,18 +180,14 @@ function createWorkout() {
         return;
     } 
 
-    var workoutID = `workoutNum${i}`
+    var workoutID = `workoutNum${workoutCount}`
 
-    workouts[i] = {
-        num:i,
-        packMand:packMand,
-    }
-    i++;
 
-    if(workoutCount === 0) {
+    console.log('client count: ' + workoutCount);
+
+    if(workoutCount > 0) {
         document.getElementById('add-first-workout').style.display = 'none';
     }
-    workoutCount++;
 
     var workoutSymbol = assignWorkoutSymbol(packMand);
     var workoutMood = assignWorkoutMood(packMand.mood);
@@ -227,14 +225,34 @@ function createWorkout() {
                     <h5> Intensity: ${packMand.intensity}/10</h5>
                     <h5> ${workoutMood} </h5>
                 </div>  
-                <div onclick="closeFullWorkou(${workoutID})" class="fw-close"> &#10005; </div>
+                <div onclick="closeFullWorkout(${workoutID})" class="fw-close"> &#10005; </div>
             </div>
             <div class="fw-layout"></div>
         `;
     var workoutSection = document.getElementById('aw-full');
     workoutSection.appendChild(newWorkoutFull);
     var workoutLayoutInput = getLayoutInput(newWorkoutLayout);
-    createWorkoutLayout(newWorkoutLayout, workoutLayoutInput);
+
+    console.log('before: ' + newWorkoutLayout)
+    workoutLayout = createWorkoutLayout(newWorkoutLayout, workoutLayoutInput);
+
+    console.log(newWorkoutLayout)
+
+    workouts[workoutCount] = {
+        packMand:packMand,
+        workoutBlockLayout:newWorkoutLayout,
+        workoutBlockValues:workoutLayoutInput,
+    }
+
+    console.log(workouts[workoutCount].workoutBlockLayout)
+
+    var updatePack = {
+        username:usernameClient,
+        workoutArray:workouts,
+    }
+
+    socket.emit('updateWorkoutPack', updatePack);
+
     document.getElementById('add-workout').style.display = 'none';
     clearAddWorkout();
 }
@@ -276,10 +294,11 @@ function assignWorkoutMood(num) {
 }
 
 function showFullWorkout(id) {
+    console.log(id)
     id.style.display = 'block';
 }
 
-function closeFullWorkou(id) {
+function closeFullWorkout(id) {
     id.style.display = 'none';
 }
 
@@ -296,8 +315,11 @@ function removeNullBlocks(array) {
 }
 
 function getLayoutInput(array) {
+    console.log(array)
     var ret = [];
-    for(var a = 0; a<array.length; a++) {ret[a] = document.getElementById(array[a].id).lastElementChild.value;}
+    for(var a = 0; a<array.length; a++) {
+        ret[a] = document.getElementById(array[a].id).lastElementChild.value;
+    }
     return ret;
 }
 
@@ -349,6 +371,7 @@ function createWorkoutLayout(array, inputArray) {
         }
         appendDiv.appendChild(newDiv);
     }
+    return appendDiv;
 }
 
 function signIn(username, password) {
@@ -356,6 +379,7 @@ function signIn(username, password) {
         username:username,
         password:password,
     }
+    usernameClient = username;
     socket.emit('signIn', data);
 }
 
@@ -388,3 +412,78 @@ socket.on('signUpResponse', function(output) {
         document.getElementById('invalid-signUp').style.display = 'block';
     }
 })
+
+socket.on('sendWorkoutPack', function(workoutPack) {
+    loadWorkouts(workoutPack);
+});
+
+function loadWorkouts(workoutPack) {
+    if(workoutPack.workoutArray) {
+        workoutCount = workoutPack.workoutArray.length;
+        if(workoutPack.workoutArray.length > 0) {
+            document.getElementById('add-first-workout').style.display = 'none';
+        }
+        for(var i = 0; i < workoutPack.workoutArray.length; i++) {
+            workouts[i] = {
+                packMand:workoutPack.workoutArray[i].packMand,
+                workoutBlockLayout:workoutPack.workoutArray[i].workoutBlockLayout,
+                workoutBlockValues:workoutPack.workoutArray[i].workoutBlockValues,
+            }
+        }
+        for(var i = 0; i < workoutPack.workoutArray.length; i++) {
+            loadWorkoutBlocks(workoutPack.workoutArray[i].packMand, workoutPack.workoutArray[i].workoutBlockLayout, workoutPack.workoutArray[i].workoutBlockValues, i);
+        }
+    }
+}
+
+function loadWorkoutBlocks(packMand, blockLayout, workoutBlockValues, pos) {
+    var workoutID = `workoutNum${pos}`
+
+    var workoutSymbol = assignWorkoutSymbol(packMand);
+    var workoutMood = assignWorkoutMood(packMand.mood);
+
+    var newWorkout = document.createElement('div');
+    newWorkout.className = 'added-workout';
+
+    newWorkout.innerHTML = 
+            `<div class="aw-workout-type"> ${workoutSymbol} </div>
+            <div class="aw-title">
+                <h4> ${packMand.date} </h4>
+                <h5> ${packMand.time} ${packMand.timeUnit} </h5>
+                <h5> ${packMand.distance} ${packMand.distanceUnit} </h5>
+            </div>
+            <div class="aw-inten-mood"> 
+                <h5> Intensity: ${packMand.intensity}/10 </h5>
+                <h5> ${workoutMood} </h5>
+            </div>
+            <div onclick="showFullWorkout(${workoutID})" class="aw-show-more"> Show More </div>`;
+    var smallWorkoutDiv = document.getElementById('aw-small');
+    smallWorkoutDiv.appendChild(newWorkout);
+    var newWorkoutFull = document.createElement('div');
+    newWorkoutFull.className = 'full-workout';
+    newWorkoutFull.id = workoutID;
+    newWorkoutFull.innerHTML = 
+        `
+            <div class="fw-heading">
+                <div class="fw-type"> ${workoutSymbol} </div>
+                <div class="fw-title">
+                    <h4> ${packMand.date} </h4>
+                    <h5> ${packMand.time} ${packMand.timeUnit} </h5>
+                    <h5> ${packMand.distance} ${packMand.distanceUnit} </h5>
+                </div>
+                <div class="fw-inten-mood"> 
+                    <h5> Intensity: ${packMand.intensity}/10</h5>
+                    <h5> ${workoutMood} </h5>
+                </div>  
+                <div onclick="closeFullWorkout(${workoutID})" class="fw-close"> &#10005; </div>
+            </div>
+            <div class="fw-layout"></div>
+        `;
+        
+    var workoutSection = document.getElementById('aw-full');
+    workoutSection.appendChild(newWorkoutFull);
+    console.log(blockLayout)
+    if(blockLayout) {
+        workoutLayout = createWorkoutLayout(blockLayout, workoutBlockValues);
+    }
+}

@@ -23,13 +23,14 @@ io.sockets.on('connection', function(socket) {
             if (!res) {
                 return socket.emit('signInResponse',false);
             }
-            else { socket.emit('signInResponse', true); }
-            /*
-            Database.getPlayerProgress(data.username, function(progress) {
-                //Player.onConnect(socket, data.username);
+            Database.getUserWorkouts(data.username, function(workoutPack) {
+                if(!workoutPack) {
+                    socket.emit('signInResponse', true);
+                    return;
+                }
+                socket.emit('sendWorkoutPack', workoutPack);
                 socket.emit('signInResponse', true);
             });
-            */
         });
         
     });
@@ -46,4 +47,8 @@ io.sockets.on('connection', function(socket) {
             }
         });
     });
+
+    socket.on('updateWorkoutPack', function(updatePack) {
+        Database.updateUserWorkouts(updatePack);
+    })
 });

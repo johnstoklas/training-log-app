@@ -22,8 +22,19 @@ Database.isUsernameTaken = function(data, cb) {
 }
 
 Database.addUser = function(data, cb) {
-    console.log(data)
     db.account.insert({username:data.username,password:data.password}, function(err) {
-        cb();
+        Database.updateUserWorkouts({username:data.username,workouts:[]}, function(){
+            cb();
+        });
     });
+}
+
+Database.getUserWorkouts = function(username, cb) {
+    db.workouts.findOne({username:username}, function(err, res) {
+        cb(res)
+    })
+}
+
+Database.updateUserWorkouts = function(data, cb) {
+    db.workouts.update({username:data.username},{$set:{workoutArray:data.workoutArray}},{upsert:true}, cb); 
 }
