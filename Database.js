@@ -16,7 +16,9 @@ Database.isUsernameTaken = function(data, cb) {
     db.account.findOne({username:data.username}, function(err,res) {
         if(res) 
             cb(true);
-        else
+        else if(data.username.includes(' '))
+            cb(true);
+        else 
             cb(false);
     });
 }

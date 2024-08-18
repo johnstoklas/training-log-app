@@ -182,13 +182,6 @@ function createWorkout() {
 
     var workoutID = `workoutNum${workoutCount}`
 
-
-    console.log('client count: ' + workoutCount);
-
-    if(workoutCount > 0) {
-        document.getElementById('add-first-workout').style.display = 'none';
-    }
-
     var workoutSymbol = assignWorkoutSymbol(packMand);
     var workoutMood = assignWorkoutMood(packMand.mood);
 
@@ -232,11 +225,11 @@ function createWorkout() {
     var workoutSection = document.getElementById('aw-full');
     workoutSection.appendChild(newWorkoutFull);
     var workoutLayoutInput = getLayoutInput(newWorkoutLayout);
+    //console.log('when function is ran: ' + workoutLayoutInput)
 
-    console.log('before: ' + newWorkoutLayout)
-    workoutLayout = createWorkoutLayout(newWorkoutLayout, workoutLayoutInput);
+    createWorkoutLayout(newWorkoutLayout, workoutLayoutInput);
 
-    console.log(newWorkoutLayout)
+    console.log(workoutCount)
 
     workouts[workoutCount] = {
         packMand:packMand,
@@ -244,14 +237,21 @@ function createWorkout() {
         workoutBlockValues:workoutLayoutInput,
     }
 
-    console.log(workouts[workoutCount].workoutBlockLayout)
-
     var updatePack = {
         username:usernameClient,
         workoutArray:workouts,
     }
 
+    console.log('data sent from client to server ' + updatePack.workoutArray[0].packMand)
+    console.log('data sent from client to server ' + updatePack.workoutArray[0].workoutBlockLayout)
+    console.log('data sent from client to server ' + updatePack.workoutArray[0].workoutBlockValues)
+
+
     socket.emit('updateWorkoutPack', updatePack);
+    workoutCount++;
+    if(workoutCount > 0) {
+        document.getElementById('add-first-workout').style.display = 'none';
+    }
 
     document.getElementById('add-workout').style.display = 'none';
     clearAddWorkout();
@@ -294,7 +294,6 @@ function assignWorkoutMood(num) {
 }
 
 function showFullWorkout(id) {
-    console.log(id)
     id.style.display = 'block';
 }
 
@@ -315,11 +314,11 @@ function removeNullBlocks(array) {
 }
 
 function getLayoutInput(array) {
-    console.log(array)
     var ret = [];
     for(var a = 0; a<array.length; a++) {
         ret[a] = document.getElementById(array[a].id).lastElementChild.value;
     }
+    //console.log('ret value in function: ' + ret);
     return ret;
 }
 
@@ -371,7 +370,6 @@ function createWorkoutLayout(array, inputArray) {
         }
         appendDiv.appendChild(newDiv);
     }
-    return appendDiv;
 }
 
 function signIn(username, password) {
@@ -386,6 +384,8 @@ function signIn(username, password) {
 socket.on('signInResponse', function(output) {
     if(output) {
         document.getElementById('log-in-div').style.display = 'none';
+        document.getElementById('log-out').style.display = 'block';
+        document.getElementById('addWorkoutButton').style.display = 'block';
     }
     else {
         document.getElementById('invalid-signIn').style.display = 'block';
@@ -397,12 +397,10 @@ function signUp(username, password) {
         username:username,
         password:password,
     }
-    console.log(data)
     socket.emit('signUp', data);
 }
 
 socket.on('signUpResponse', function(output) {
-    console.log(output)
     if(output) {
         document.getElementById('invalid-signUp').style.display = 'none';
         document.getElementById('valid-signUp').style.display = 'block';
@@ -419,11 +417,14 @@ socket.on('sendWorkoutPack', function(workoutPack) {
 
 function loadWorkouts(workoutPack) {
     if(workoutPack.workoutArray) {
-        workoutCount = workoutPack.workoutArray.length;
+        if(workoutPack.workoutArray.length > 0) {
+            workoutCount = workoutPack.workoutArray.length;
+        }
         if(workoutPack.workoutArray.length > 0) {
             document.getElementById('add-first-workout').style.display = 'none';
         }
         for(var i = 0; i < workoutPack.workoutArray.length; i++) {
+            console.log('data received '  + workoutPack.workoutArray[i])
             workouts[i] = {
                 packMand:workoutPack.workoutArray[i].packMand,
                 workoutBlockLayout:workoutPack.workoutArray[i].workoutBlockLayout,
@@ -482,8 +483,20 @@ function loadWorkoutBlocks(packMand, blockLayout, workoutBlockValues, pos) {
         
     var workoutSection = document.getElementById('aw-full');
     workoutSection.appendChild(newWorkoutFull);
-    console.log(blockLayout)
     if(blockLayout) {
-        workoutLayout = createWorkoutLayout(blockLayout, workoutBlockValues);
+        createWorkoutLayout(blockLayout, workoutBlockValues);
     }
+}
+
+function logOut() {
+    document.getElementById('aw-small').innerHTML = ``;
+    document.getElementById('aw-full').innerHTML = ``;
+    document.getElementById('log-in-div').style.display = 'block';
+    document.getElementById('invalid-signIn').style.display = 'none';
+    document.getElementById('invalid-signUp').style.display = 'none';
+    document.getElementById('valid-signUp').style.display = 'none';
+    document.getElementById('add-first-workout').style.display = 'block';
+    document.getElementById('log-out').style.display = 'none';
+    document.getElementById('addWorkoutButton').style.display = 'none';
+    clearAddWorkout();
 }

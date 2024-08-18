@@ -10,20 +10,21 @@
     <header id="main-nav">
         <h4 style="margin-left: 10px"> Training Log 💪</h4>
         <div>
-            <div onclick="addWorkoutButton()" id="addWorkoutButton"> &#43; </div>
+            <h6 onclick="logOut()" id="log-out" style="display: none;"> Log Out </h6>
+            <div onclick="addWorkoutButton()" id="addWorkoutButton" style="display: none;"> &#43; </div>
         </div>
     </header>
 
     <section id="log-in">
         <div id="log-in-div">
             <h2> Welcome to Training Log </h2>
-            <h3> Enter your login information below </h3>
+            <h3> Enter your login information below: </h3>
             Username: <input type="text" class="sign-in-info" id="username-input"></input> <br> 
-            Password: <input type="password" class="sign-in-info" id="password-input" style="margin-left: 5.5px;"></input>
-            <button type="button" onclick="signIn(document.getElementById('username-input').value, document.getElementById('password-input').value)"> Sign In </button>
-            <button type="button" onclick="signUp(document.getElementById('username-input').value, document.getElementById('password-input').value)"> Sign Up </button>  
+            Password: <input type="password" class="sign-in-info" id="password-input" style="margin-left: 5.5px;"></input> <br>
+            <button type="button" onclick="signIn(document.getElementById('username-input').value, document.getElementById('password-input').value)" class="button"> Sign In </button>
+            <button type="button" onclick="signUp(document.getElementById('username-input').value, document.getElementById('password-input').value)" class="button"> Sign Up </button>  
             <h4 id="invalid-signIn"> Invalid username or password. Try again.</h4> 
-            <h4 id="invalid-signUp"> Username already taken. Try again.</h4> 
+            <h4 id="invalid-signUp"> Username already taken or invalid username (A username cannot have spaces). Try again.</h4> 
             <h4 id="valid-signUp"> Sign up succesful. Please log in. </h4> 
         </div>
     </section>

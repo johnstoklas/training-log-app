@@ -49,6 +49,9 @@ io.sockets.on('connection', function(socket) {
     });
 
     socket.on('updateWorkoutPack', function(updatePack) {
+        for(var i in updatePack.workouts) {
+            console.log('data sent to server ' + updatePack.workouts[i])
+        }
         Database.updateUserWorkouts(updatePack);
     })
 });
