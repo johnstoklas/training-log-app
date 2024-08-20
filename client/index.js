@@ -384,10 +384,15 @@ function signIn(username, password) {
 socket.on('signInResponse', function(output) {
     if(output) {
         document.getElementById('log-in-div').style.display = 'none';
+        document.getElementById('invalid-signUp').style.display = 'none';
+        document.getElementById('invalid-signIn').style.display = 'none';
+        document.getElementById('valid-signUp').style.display = 'none';
         document.getElementById('log-out').style.display = 'block';
         document.getElementById('addWorkoutButton').style.display = 'block';
     }
     else {
+        document.getElementById('invalid-signUp').style.display = 'none';
+        document.getElementById('valid-signUp').style.display = 'none';
         document.getElementById('invalid-signIn').style.display = 'block';
     }
 })
@@ -403,10 +408,12 @@ function signUp(username, password) {
 socket.on('signUpResponse', function(output) {
     if(output) {
         document.getElementById('invalid-signUp').style.display = 'none';
+        document.getElementById('invalid-signIn').style.display = 'none';
         document.getElementById('valid-signUp').style.display = 'block';
     }
     else {
         document.getElementById('valid-signUp').style.display = 'none';
+        document.getElementById('invalid-signIn').style.display = 'none';
         document.getElementById('invalid-signUp').style.display = 'block';
     }
 })
