@@ -8,8 +8,8 @@ As someone who trains for marathons and triathlons, I struggled with the little 
 
 - **client**: Main code for the front end of the application
   - **index.html**: Contains the HTML formatting for the website
-  - **index.js**: Contains logic used for checking where your movie belongs in your timeline and has calls to TMDB API to fetch data for the game
-- **public**: Holds styling info
-  - **style.css**: Has styling elements used in the website
+  - **index.js**: Contains logic for uploading workouts and sending that information to the database
+- **public**: Contains styling files
 
-- **app.js**: Holds all the back end code, this code is used to send data from the client side to the server and then to their opponent. For example, if a player correctly places a movie in order it sends that data to their opponent and tells them how long their opponent's timeline is.
+- **Database.js**: Handles user authentication, once the user logs in their information is sent to app.js
+- **app.js**: Retrieves and configures the user's past workouts based on database records
