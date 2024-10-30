@@ -6,10 +6,10 @@ As someone who trains for marathons and triathlons, I struggled with the little 
 
 ### Folder Descriptions
 
-- **client**: Main code for the front end of the application
-  - **index.html**: Contains the HTML formatting for the website
-  - **index.js**: Contains logic for uploading workouts and sending that information to the database
-- **public**: Contains styling files
+- **`client`**: Main code for the front end of the application
+  - **`index.html`**: Contains the HTML formatting for the website
+  - **`index.js`**: Contains logic for uploading workouts and sending that information to the database
+- **`public`**: Contains styling files
 
-- **Database.js**: Handles user authentication, once the user logs in their information is sent to app.js
-- **app.js**: Retrieves and configures the user's past workouts based on database records
+- **`Database.js`**: Handles user authentication, once the user logs in their information is sent to app.js
+- **`app.js`**: Retrieves and configures the user's past workouts based on database records
